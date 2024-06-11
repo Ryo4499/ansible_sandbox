@@ -1,0 +1,30 @@
+services:
+  vm1:
+    container_name: vm1
+    build:
+      context: server
+      dockerfile: Dockerfile
+    tty: true
+  vm2:
+    container_name: vm2
+    build:
+      context: server
+      dockerfile: Dockerfile
+    tty: true
+  vm3:
+    container_name: vm3
+    build:
+      context: server
+      dockerfile: Dockerfile
+    tty: true
+  master:
+    container_name: master
+    build:
+      context: client
+      dockerfile: Dockerfile
+    tty: true
+    user: ubuntu
+    working_dir: /home/ubuntu/ansible
+    entrypoint: bash
+    volumes:
+      - ./:/home/ubuntu/ansible

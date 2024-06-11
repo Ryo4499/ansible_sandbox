@@ -1,0 +1,3 @@
+.ansible/
+*rsa
+*.pub

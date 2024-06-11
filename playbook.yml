@@ -1,0 +1,48 @@
+- hosts: virtual_machines
+  remote_user: root
+  become: true
+  tasks:
+    # test file module
+    - name: Create Directory
+      file:
+        path: /home/ubuntu/file_module
+        state: directory
+    - name: Create File
+      file:
+        path: /home/ubuntu/file_module/file.txt
+        state: touch
+    - name: Change Owner
+      file:
+        path: /home/ubuntu/file_module/
+        state: directory
+        recurse: yes
+        owner: ubuntu
+        group: ubuntu
+    # test command module
+    - name: Update apt
+      command: apt update
+    - name: Install python
+      command: apt install -y python3-dev
+    # test shell module
+    - name: Run shell command
+      shell: echo "Hello, World!"
+    # test copy module
+    - name: Copy file
+      copy:
+        src: /etc/hosts
+        dest: /home/ubuntu/file_module/file_copy.txt
+    # test fetch module
+    - name: Fetch file
+      fetch:
+        src: /home/ubuntu/file_module/file_copy.txt
+        dest: /home/ubuntu/file_module/fetched/
+    # test apt module
+    - name: Install apache2
+      apt:
+        name: apache2
+        state: present
+    # test service module
+    - name: Start service
+      service:
+        name: apache2
+        state: started
